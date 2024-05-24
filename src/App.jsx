@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Cart from './components/Cart';
 import ProduceList from './components/ProduceList';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { populateProduce } from './store/produce'
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
     dispatch(populateProduce());
   }, [dispatch]);
 
-  
+
   return (
     <>
       <nav>
