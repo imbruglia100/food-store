@@ -1,30 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Cart from './components/Cart';
 import ProduceList from './components/ProduceList';
 import { useDispatch, useSelector } from 'react-redux'
 import { populateProduce } from './store/produce'
+import { useCartContext } from './context/ShowCart';
 
 function App() {
-  const [showCart, setShowCart] = useState(false);
+
   const dispatch = useDispatch()
   const cartItems = useSelector(state=> state.cart)
+  const produceItems = Object.values(useSelector(state=> state.produce))
+  const {showCart, setShowCart} = useCartContext()
 
   useEffect(() => {
-    dispatch(populateProduce());
+    if(produceItems.length === 0)dispatch(populateProduce());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(populateProduce(produceItems));
   }, [dispatch]);
 
   useEffect(() => {
     setShowCart(Object.keys(cartItems).length > 0)
   }, [cartItems])
+
   return (
     <>
-      <nav>
-        <h1>Grocery Store</h1>
-        <button className="checkout-button" onClick={() => setShowCart(true)}>
-          <i className="fas fa-shopping-bag" />
-          Checkout
-        </button>
-      </nav>
+
       <main style={showCart ? { marginRight: '300px' } : {}} >
         <ProduceList />
       </main>

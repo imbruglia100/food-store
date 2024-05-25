@@ -71,8 +71,11 @@ button:focus {
   margin-right: 8px;
 }
 
-h1 {
+.logo {
   color: darkred;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: 600;
 }
 
 h2 {

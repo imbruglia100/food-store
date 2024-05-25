@@ -3,21 +3,36 @@ import { createSelector } from 'reselect';
 
 const POPULATE = 'produce/POPULATE';
 const LIKE = 'produce/like';
+const ADD = 'produce/add';
 
 export const selectProduce = (state) => state.produce;
 export const selectProduceArray =
   createSelector(selectProduce, (produce) => Object.values(produce));
 
-export const populateProduce = () => {
+export const populateProduce = (produceItems = []) => {
+  console.log(produceItems)
+  if(produceItems.length === 0){
+    return {
+      type: POPULATE,
+      produce: produceData
+    };}
+
   return {
-    type: POPULATE,
-    produce: produceData
-  };
+    type:POPULATE,
+    produce: produceItems
+  }
 };
 
 export const likeAProduce = (payload) => {
   return {
     type: LIKE,
+    payload
+  };
+};
+
+export const addAProduct = (payload) => {
+  return {
+    type: ADD,
     payload
   };
 };
@@ -35,6 +50,10 @@ export default function produceReducer(state = {}, action) {
             const liked = action.payload.liked
 
             return {...state, [action.payload.id]: { ...action.payload, liked: !liked}};
+          }
+        case ADD: {
+
+            return {...state, [action.payload.id]: { ...action.payload}};
           }
         default:
             return state;
