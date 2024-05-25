@@ -1,10 +1,10 @@
 import CartItem from './CartItem';
 import './Cart.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearCart } from '../../store/cart';
+import { clearCart, selectCartArray } from '../../store/cart';
 
 function Cart() {
-  const cart = useSelector(state=>state.cart);
+  const cart = useSelector(selectCartArray);
   const produce = {};
   const dispatch = useDispatch()
 
@@ -14,7 +14,8 @@ function Cart() {
         ...item,
         ...produce[item.id]
       };
-    });
+    })
+    .sort((a, b) => a.addedAt - b.addedAt);
 
   if (!cartItems || !cartItems.length) return (
     <div className="cart">

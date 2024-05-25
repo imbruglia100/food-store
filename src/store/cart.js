@@ -1,10 +1,16 @@
 /** @format */
 
+import { createSelector } from "reselect";
+
 const ADD_TO_CART = "cart/addToCart";
 const SUBTRACT_FROM_CART = "cart/subtractFromCart";
 const CUSTOM_AMOUNT = "cart/customAmount";
 const REMOVE_FROM_CART = "cart/removeFromCart";
 const CLEAR_CART = "cart/clearCart";
+
+export const selectCart = (state) => state.cart;
+export const selectCartArray =
+  createSelector(selectCart, (cart) => Object.values(cart));
 
 export const addToCart = (payload) => {
   return {
@@ -48,7 +54,7 @@ export default function cartReducer(state = {}, action) {
       if (!currFood)
         return {
           ...state,
-          [action.payload.id]: { ...action.payload, count: 1},
+          [action.payload.id]: { ...action.payload, count: 1, addedAt: Date.now()},
         };
 
       return {
