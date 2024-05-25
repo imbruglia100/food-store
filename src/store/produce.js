@@ -10,7 +10,6 @@ export const selectProduceArray =
   createSelector(selectProduce, (produce) => Object.values(produce));
 
 export const populateProduce = (produceItems = []) => {
-  console.log(produceItems)
   if(produceItems.length === 0){
     return {
       type: POPULATE,

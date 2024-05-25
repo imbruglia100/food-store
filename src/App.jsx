@@ -13,10 +13,6 @@ function App() {
   const {showCart, setShowCart} = useCartContext()
 
   useEffect(() => {
-    if(produceItems.length === 0)dispatch(populateProduce());
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(populateProduce(produceItems));
   }, [dispatch]);
 
